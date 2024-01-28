@@ -40,7 +40,23 @@ echo"end";
 
 $statment = $pdo->query('SELECT * FROM Students WHERE id = 1');
 $resultadoConsulta = $statment->fetch(PDO::FETCH_ASSOC);
-var_dump($resultadoConsulta); exit();
+var_dump($resultadoConsulta); 
 
 
 
+#FAZENDO CONSULTA COM VÁRIOS REGISTROS COM WHILE
+echo "begom";
+$statment = $pdo->query('SELECT * FROM Students');
+
+while ($resultado = $statment->fetch(PDO::FETCH_ASSOC)) {
+    $estudante = new Student(
+        $resultado['id'],
+        $resultado['name'],
+        new DateTimeImmutable($resultado['birthDate']),
+
+    );
+
+    echo $estudante->age();
+    
+
+};

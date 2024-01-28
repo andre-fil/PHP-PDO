@@ -10,7 +10,7 @@ $databasePath= __DIR__ .'/banco.sqlite';
 $pdo = new PDO('sqlite:'. $databasePath);
 echo 'conectei!';
 
-$student = new Student(null,'André Barreto', new DateTimeImmutable('2002-02-07'));
+$student = new Student(null,'André Barreto', new DateTimeImmutable('2000-02-07'));
 
 $sqlInsert = "INSERT INTO Students (name, birthDate) VALUES ('{$student ->  name()}', '{$student -> birthDate()->format('Y-m-d')}');";
 
