@@ -12,8 +12,20 @@ echo 'conectei!';
 
 $student = new Student(null,'André Barreto', new DateTimeImmutable('2000-02-07'));
 
+/*
+
 $sqlInsert = "INSERT INTO Students (name, birthDate) VALUES ('{$student ->  name()}', '{$student -> birthDate()->format('Y-m-d')}');";
 
 echo $sqlInsert;
 
 var_dump($pdo->exec($sqlInsert));
+*/
+
+$sqlInsert = "INSERT INTO Students (name, birthDate) VALUES (?,?)";
+$statement = $pdo->prepare($sqlInsert);
+$statement->bindValue(1, $student->name());
+$statement->bindValue(2,$student->birthDate()->format("Y-m-d"));
+
+if($statement->execute()){
+    echo"Aluno incluído";
+}

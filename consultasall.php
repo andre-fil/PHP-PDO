@@ -10,6 +10,7 @@ $databasePath= __DIR__ .'/banco.sqlite';
 $pdo = new PDO('sqlite:'. $databasePath);
 echo 'conectei!';
 
+#USUALMWNTE USADO
 $statment = $pdo->query('SELECT * FROM Students');
 $studentDataList = $statment->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,6 +48,8 @@ var_dump($resultadoConsulta);
 #FAZENDO CONSULTA COM VÁRIOS REGISTROS COM WHILE
 echo "begom";
 $statment = $pdo->query('SELECT * FROM Students');
+
+#USADO QUANDO SE TEM MUITOS DADOS
 
 while ($resultado = $statment->fetch(PDO::FETCH_ASSOC)) {
     $estudante = new Student(
