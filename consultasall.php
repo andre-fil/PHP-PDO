@@ -39,9 +39,13 @@ echo"end";
 
 #FAZENDO CONSULTAS UNITÁRIAS
 
-$statment = $pdo->query('SELECT * FROM Students WHERE id = 1');
-$resultadoConsulta = $statment->fetch(PDO::FETCH_ASSOC);
-var_dump($resultadoConsulta); 
+$statment3 = $pdo->query('SELECT * FROM Students WHERE id = 8');
+$statment3->execute();
+$resultadoConsulta = $statment3->fetch(PDO::FETCH_ASSOC);
+echo "PIMBA";  
+var_dump($resultadoConsulta);
+echo "EDNN";
+exit();
 
 
 
