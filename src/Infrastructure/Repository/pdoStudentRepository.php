@@ -16,6 +16,27 @@ Class PdoStudentRepository implements StudentRepository
         $this->connection = ConectionCreator::createConnection();
     }
 
+    public function allStudents() :array
+    {
+        $selectQuery = 'SELECT * FROM Students';
+        $stmt = $this->connection->query($selectQuery);
+
+        return $this->hydrateStudentList($stmt);
+
+    }
+
+    public function studentsBirthAt(\DateTimeInterface $birthDate) :array
+    {
+        $selectBirth = 'SELECT * FROM Students WHERE birthDate = ?;';
+        $stmt = $this->connection->prepare($selectBirth);
+        $stmt->bindValue(1,$birthDate->format('Y-m-d'));
+        $stmt->execute();
+
+        return $this->hydrateStudentList($stmt);
+    }
+
+    
+
 
     public function save(Student $student) : bool
     {
@@ -40,6 +61,17 @@ Class PdoStudentRepository implements StudentRepository
         
         return $sucess;
 
+    }
+
+    private function update(Student $student)
+    {
+        $updateQuery = 'UPDATE Students SET name = :name, birthDate = :birthDate WHERE id = :id';
+        $stmt = $this->connection->prepare($updateQuery);
+        $stmt->bindValue(':name', $student->name(),PDO::PARAM_STR);
+        $stmt->bindValue(':birthDate', $student->birthDate()->format('Y-m-d'));
+        $stmt->bindValue(':id',$student->id(),PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 
 
